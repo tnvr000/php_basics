@@ -35,7 +35,7 @@
   }
   echo "<br>Poseidan has been successfully added to your contacts list.<br><br>";
 
-  $sql_stmt = "UPDATE my_contacts SET contact_no = '875' WHERE id = 5";
+  $sql_stmt = "UPDATE my_contacts SET contact_no = '875' WHERE email = 'poseidan@sea.co'";
   $result = mysqli_query($conn, $sql_stmt);
   if(!$result) {
     die("Updating record failed: " . mysqli_error($conn));
@@ -47,7 +47,24 @@
   if(!$result) {
     die("Deleting record failed: " . mysqli_error($conn));
   }
-  echo "Poseidan contact deleted successfully.";
+  echo "Poseidan contact deleted successfully.<br><br>";
 
   mysqli_close($conn);
+
+  try {
+    $pdo = new PDO("mysql:host=localhost;dbname=php_login", 'tnvr000', 'pqqrrr@123');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+    $pdo->exec('SET NAMES "utf8"');
+    $sql_stmt = "SELECT * FROM my_contacts";
+    $result = $pdo->query($sql_stmt);
+    $result->setFetchMode(PDO::FETCH_ASSOC);
+    $data = array();
+    foreach($result as $row) {
+      $data[] = $row;
+    }
+    print_r($data);
+  } catch(PDOException $e) {
+    echo $e->getMessage();
+  }
+
 ?>
