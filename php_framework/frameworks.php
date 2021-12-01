@@ -1,19 +1,20 @@
 <?php
-  $framewoeks = array("CodeIgniger", "Zend Framework", "Cake PHP", "Kohana");
-  $name = $_POST['name'];
-
-  if(strlen(trim($name)) > 0) {
+  $frameworks = array("CodeIgniger", "Zend Framework", "Cake PHP", "Kohana");
+  $name = $_GET['name'];
+  if(strlen($name) > 0) {
     $match = "";
     for($i = 0; $i < count($frameworks); ++$i) {
-      if(strtolower($name) == strtolower(substr($framewoeks[$i], 0, strlen($name)))) {
+      // echo strlen(strtolower($name));
+      if(strtolower($name) == strtolower(substr($frameworks[$i], 0, strlen($name)))) {
         if($match == "") {
           $match = $frameworks[$i];
         } else {
-          $match = $match . ", " . $framewoeks[$i];
+          $match = $match . ", " . $frameworks[$i];
         }
       }
     }
   }
 
-  echo ($match == 0) ? 'no match found' : $match;
+  echo ($match == "") ? 'no match found' : $match;
+  // echo substr($fra);
 ?>
